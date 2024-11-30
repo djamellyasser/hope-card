@@ -8,12 +8,11 @@
     ],
     "routes": [
         {
-            "src": "/static/(.*)",
-            "dest": "/static/$1"
-        },
-        {
             "src": "/(.*)",
             "dest": "hopecarde/wsgi.py"
         }
-    ]
+    ],
+    "env": {
+        "PYTHONPATH": "."
+    }
 }
