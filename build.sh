@@ -1,11 +1,20 @@
 #!/bin/bash
 
-# Install Python dependencies
+# Exit on error
+set -e
+
+echo "Installing dependencies..."
 pip install -r requirements.txt
 
-# Collect static files
+echo "Creating static directory..."
+mkdir -p static
+mkdir -p staticfiles
+
+echo "Collecting static files..."
 python manage.py collectstatic --noinput
 
-# Make migrations
-python manage.py makemigrations
-python manage.py migrate
+echo "Making migrations..."
+python manage.py makemigrations --noinput
+python manage.py migrate --noinput
+
+echo "Build completed successfully!"
