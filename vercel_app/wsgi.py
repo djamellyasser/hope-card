@@ -4,17 +4,22 @@ from pathlib import Path
 
 # Add your project directory to the sys.path
 project_root = Path(__file__).resolve().parent.parent
-if str(project_root) not in sys.path:
-    sys.path.insert(0, str(project_root))
+sys.path.append(str(project_root))
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'hopecarde.settings')
+try:
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'hopecarde.settings')
 
-# This is to ensure we have access to all Django apps
-import django
-django.setup()
+    from django.core.wsgi import get_wsgi_application
+    
+    # This is to ensure we have access to all Django apps
+    import django
+    django.setup()
+    
+    application = get_wsgi_application()
+    
+    # Vercel needs the variable to be named 'app'
+    app = application
 
-from django.core.wsgi import get_wsgi_application
-application = get_wsgi_application()
-
-# Vercel needs the variable to be named 'app'
-app = application
+except Exception as e:
+    print(f"Error in wsgi.py: {str(e)}")
+    raise
