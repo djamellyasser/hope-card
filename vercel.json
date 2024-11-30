@@ -23,5 +23,10 @@
     "env": {
         "PYTHONPATH": ".",
         "DJANGO_SETTINGS_MODULE": "hopecarde.settings"
+    },
+    "functions": {
+        "api/**/*.py": {
+            "runtime": "@vercel/node@18.0.0"
+        }
     }
 }
