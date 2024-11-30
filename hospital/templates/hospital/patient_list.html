@@ -1,0 +1,97 @@
+{% extends "hospital/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ title }} - Hope Carde{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary">
+            <i class="fas fa-users me-2"></i>
+            قائمة المرضى
+        </h2>
+        <a href="{% url 'add_patient' %}" class="btn btn-primary">
+            <i class="fas fa-plus-circle me-1"></i>
+            إضافة مريض جديد
+        </a>
+    </div>
+
+    <div class="card search-form mb-4">
+        <div class="card-body">
+            <form method="get" class="form-inline justify-content-center">
+                <div class="input-group">
+                    {{ search_form.search_query }}
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-search me-1"></i>
+                            بحث
+                        </button>
+                        {% if request.GET.search_query %}
+                            <a href="{% url 'patient_list' %}" class="btn btn-secondary">
+                                <i class="fas fa-times me-1"></i>
+                                إعادة تعيين
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% if patients %}
+    <div class="card">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>الاسم الكامل</th>
+                            <th>تاريخ الميلاد</th>
+                            <th>الجنس</th>
+                            <th>رقم الهاتف</th>
+                            <th>رقم الهوية</th>
+                            <th>رقم العضوية</th>
+                            <th class="text-center">الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for patient in patients %}
+                        <tr>
+                            <td>
+                                <strong>{{ patient.full_name }}</strong>
+                            </td>
+                            <td>{{ patient.date_of_birth }}</td>
+                            <td>{{ patient.get_gender_display }}</td>
+                            <td>{{ patient.phone_number }}</td>
+                            <td>{{ patient.id_number|default:"-" }}</td>
+                            <td>{{ patient.membership_number|default:"-" }}</td>
+                            <td class="text-center">
+                                <a href="{% url 'edit_patient' patient.pk %}" class="btn btn-warning btn-sm mx-1">
+                                    <i class="fas fa-edit"></i>
+                                    تعديل
+                                </a>
+                                <a href="{% url 'delete_patient' patient.pk %}" class="btn btn-danger btn-sm mx-1">
+                                    <i class="fas fa-trash-alt"></i>
+                                    حذف
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        <i class="fas fa-info-circle me-2"></i>
+        {% if request.GET.search_query %}
+            لا توجد نتائج للبحث.
+        {% else %}
+            لا يوجد مرضى مسجلين حالياً.
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

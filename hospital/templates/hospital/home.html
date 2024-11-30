@@ -1,0 +1,331 @@
+{% extends 'hospital/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<style>
+    .typing-wrapper {
+        min-height: 120px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .typing-demo {
+        position: relative;
+        color: #fff;
+        font-size: 2rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .typing-demo::after {
+        content: "|";
+        position: absolute;
+        right: 0;
+        animation: blink 1s infinite;
+        color: #fff;
+    }
+
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+    }
+
+    .hero-content {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .feature-card {
+        transform: translateY(20px);
+        opacity: 0;
+        animation: slideUp 0.6s ease forwards;
+    }
+
+    .feature-card:nth-child(1) { animation-delay: 0.2s; }
+    .feature-card:nth-child(2) { animation-delay: 0.4s; }
+    .feature-card:nth-child(3) { animation-delay: 0.6s; }
+
+    @keyframes slideUp {
+        from {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .page-title {
+        opacity: 0;
+        transform: translateY(-20px);
+        animation: fadeInDown 1s ease forwards;
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .lead {
+        opacity: 0;
+        animation: fadeIn 1s ease forwards 0.5s;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .fas {
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover .fas {
+        transform: scale(1.2) rotate(10deg);
+    }
+
+    .typing-text {
+        position: relative;
+        white-space: nowrap;
+        border-right: 4px solid;
+        animation: typing 4s steps(40) infinite,
+                 blink .75s step-end infinite;
+        overflow: hidden;
+        width: 0;
+    }
+
+    .typing-text.title {
+        animation: typing-title 3s steps(30) forwards;
+        margin: 0 auto;
+    }
+
+    .typing-text.subtitle {
+        animation: typing-subtitle 4s steps(50) forwards;
+        animation-delay: 3s;
+        margin: 0 auto;
+    }
+
+    @keyframes typing-title {
+        from { width: 0 }
+        to { width: 100% }
+    }
+
+    @keyframes typing-subtitle {
+        from { width: 0 }
+        to { width: 100% }
+    }
+
+    @keyframes blink {
+        from, to { border-color: transparent }
+        50% { border-color: #fff; }
+    }
+
+    .hero-content {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .hero-title, .hero-subtitle {
+        display: inline-block;
+        margin: 0 auto;
+    }
+</style>
+{% endblock %}
+
+{% block title %}Hope Carde - الرئيسية{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-content">
+        <div class="typing-wrapper">
+            <div class="typing-demo"></div>
+        </div>
+        {% if not user.is_authenticated %}
+        <div class="mt-4">
+            <a href="{% url 'login' %}" class="btn-primary-outline me-3">تسجيل الدخول</a>
+            <a href="{% url 'signup' %}" class="btn-primary-outline">إنشاء حساب</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="services-section">
+    <div class="container">
+        <h2 class="section-title mb-5">خدماتنا</h2>
+        <div class="row">
+            <!-- Service 1 -->
+            <div class="col-md-4 mb-4">
+                <div class="service-card animate-fade-in-up">
+                    <div class="service-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="service-title">تخزين المعلومات</h3>
+                    <p class="service-description">
+                        قم بتخزين معلوماتك الشخصية والطبية بأمان على موقعنا الإلكتروني
+                    </p>
+                </div>
+            </div>
+            <!-- Service 2 -->
+            <div class="col-md-4 mb-4">
+                <div class="service-card animate-fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="service-title">الوصول السهل</h3>
+                    <p class="service-description">
+                        نتمتع بالوصول السهل لمعلوماتك الطبية والشخصية في أي وقت ومن أي مكان
+                    </p>
+                </div>
+            </div>
+            <!-- Service 3 -->
+            <div class="col-md-4 mb-4">
+                <div class="service-card animate-fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="service-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3 class="service-title">التنسيق بين الأطباء</h3>
+                    <p class="service-description">
+                        تسهيل التنسيق والتواصل بين الأطباء لتحسين جودة الرعاية الصحية
+                    </p>
+                </div>
+            </div>
+            <!-- Service 4 -->
+            <div class="col-md-4 mb-4">
+                <div class="service-card animate-fade-in-up" style="animation-delay: 0.6s;">
+                    <div class="service-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3 class="service-title">تحسين الرعاية الصحية</h3>
+                    <p class="service-description">
+                        تحسين جودة الرعاية الصحية من خلال توفير المعلومات الدقيقة للأطباء والمؤسسات الطبية
+                    </p>
+                </div>
+            </div>
+            <!-- Service 5 -->
+            <div class="col-md-4 mb-4">
+                <div class="service-card animate-fade-in-up" style="animation-delay: 0.8s;">
+                    <div class="service-icon">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <h3 class="service-title">بطاقة RFID</h3>
+                    <p class="service-description">
+                        نوفر بطاقات وأساور RFID للوصول السريع والآمن لمعلوماتك الطبية
+                    </p>
+                </div>
+            </div>
+            <!-- Service 6 -->
+            <div class="col-md-4 mb-4">
+                <div class="service-card animate-fade-in-up" style="animation-delay: 1s;">
+                    <div class="service-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3 class="service-title">الأمان والخصوصية</h3>
+                    <p class="service-description">
+                        نضمن أمان وخصوصية معلوماتك الطبية باستخدام أحدث تقنيات الحماية
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if user.is_authenticated %}
+<!-- Dashboard Section -->
+<section class="dashboard-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h3 class="card-title">لوحة التحكم</h3>
+                        <div class="row mt-4">
+                            <div class="col-md-4">
+                                <a href="{% url 'patient_list' %}" class="btn btn-primary d-block mb-3">
+                                    <i class="fas fa-users me-2"></i>قائمة المرضى
+                                </a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="{% url 'add_patient' %}" class="btn btn-success d-block mb-3">
+                                    <i class="fas fa-user-plus me-2"></i>إضافة مريض جديد
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const texts = [
+        "مرحباً بكم في Hope Carde",
+        "نظام إدارة المستشفى المتكامل",
+        "للرعاية الصحية الأفضل"
+    ];
+    
+    const typingDemo = document.querySelector('.typing-demo');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let isPaused = false;
+    let pauseEnd = 0;
+
+    function type() {
+        const currentText = texts[textIndex];
+        
+        if (isPaused && Date.now() > pauseEnd) {
+            isPaused = false;
+            isDeleting = true;
+        }
+        
+        if (isDeleting) {
+            typingDemo.textContent = currentText.substring(0, charIndex - 1);
+            charIndex--;
+            
+            if (charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+            }
+        } else {
+            typingDemo.textContent = currentText.substring(0, charIndex + 1);
+            charIndex++;
+            
+            if (charIndex === currentText.length) {
+                isPaused = true;
+                pauseEnd = Date.now() + 2000; // Pause for 2 seconds
+            }
+        }
+        
+        const speedUp = isDeleting ? 30 : 100;
+        const normalSpeed = isDeleting ? 50 : 150;
+        const time = isPaused ? 2000 : speedUp;
+        
+        setTimeout(type, time);
+    }
+
+    type();
+});
+</script>
+{% endblock %}

@@ -1,0 +1,163 @@
+{% extends 'hospital/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% if form.instance.pk %}تعديل بيانات المريض{% else %}إضافة مريض جديد{% endif %} - Hope Carde{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-lg slide-up">
+            <div class="card-header bg-primary text-white p-4">
+                <div class="d-flex align-items-center">
+                    <img src="{% static 'img/logo.png' %}" alt="Circle Medical" height="40" class="me-3">
+                    <h3 class="card-title mb-0">النموذج الطبي</h3>
+                </div>
+            </div>
+            <div class="card-body p-4">
+                <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    
+                    <!-- Personal Information -->
+                    <div class="section-header mb-4">
+                        <h4 class="text-primary">المعلومات الشخصية</h4>
+                        <div class="border-bottom border-primary"></div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form.full_name|as_crispy_field }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form.date_of_birth|as_crispy_field }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form.gender|as_crispy_field }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form.phone_number|as_crispy_field }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            {{ form.address|as_crispy_field }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form.email|as_crispy_field }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form.id_number|as_crispy_field }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form.status|as_crispy_field }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form.occupation|as_crispy_field }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            {{ form.are_you_retired|as_crispy_field }}
+                        </div>
+                    </div>
+
+                    <!-- Emergency Contact Details -->
+                    <div class="section-header mb-4 mt-4">
+                        <h4 class="text-primary">معلومات الاتصال في حالات الطوارئ</h4>
+                        <div class="border-bottom border-primary"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form.emergency_contact_name|as_crispy_field }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form.emergency_contact_relationship|as_crispy_field }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            {{ form.emergency_contact_phone|as_crispy_field }}
+                        </div>
+                    </div>
+
+                    <!-- Office Use Only -->
+                    <div class="section-header mb-4 mt-4">
+                        <h4 class="text-primary">لاستخدام المكتب فقط</h4>
+                        <div class="border-bottom border-primary"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form.membership_number|as_crispy_field }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form.membership_type|as_crispy_field }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form.payment_type|as_crispy_field }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form.staff_name|as_crispy_field }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            {{ form.staff_signature|as_crispy_field }}
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            {% if form.instance.pk %}
+                                <i class="fas fa-save me-2"></i>حفظ التغييرات
+                            {% else %}
+                                <i class="fas fa-plus me-2"></i>إضافة مريض جديد
+                            {% endif %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add RTL support for the form -->
+<style>
+    .card {
+        direction: rtl;
+        text-align: right;
+    }
+    .form-label {
+        text-align: right;
+    }
+    .form-control {
+        text-align: right;
+    }
+    .form-check {
+        padding-right: 1.5em;
+        padding-left: 0;
+    }
+    .form-check .form-check-input {
+        float: right;
+        margin-right: -1.5em;
+        margin-left: 0;
+    }
+</style>
+{% endblock %}

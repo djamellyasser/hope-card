@@ -1,0 +1,48 @@
+{% extends 'hospital/base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">تسجيل الدخول</h2>
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="{{ form.username.id_for_label }}" class="form-label">اسم المستخدم</label>
+                            {% render_field form.username class="form-control" placeholder="أدخل اسم المستخدم" %}
+                            {% if form.username.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.username.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="{{ form.password.id_for_label }}" class="form-label">كلمة المرور</label>
+                            {% render_field form.password class="form-control" placeholder="أدخل كلمة المرور" %}
+                            {% if form.password.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.password.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                        {% endif %}
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">تسجيل الدخول</button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-3">
+                        <p>ليس لديك حساب؟ <a href="{% url 'signup' %}">إنشاء حساب جديد</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

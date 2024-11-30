@@ -1,0 +1,66 @@
+{% extends 'hospital/base.html' %}
+{% load static %}
+
+{% block title %}تسجيل الخروج - Hope Carde{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <div class="logout-message">
+                <i class="fas fa-check-circle text-success mb-4" style="font-size: 4rem;"></i>
+                <h2 class="mb-4">تم تسجيل الخروج بنجاح</h2>
+                <p class="lead mb-4">شكراً لاستخدامك Hope Carde</p>
+                <a href="{% url 'home' %}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-home me-2"></i>العودة للصفحة الرئيسية
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .logout-message {
+        padding: 3rem;
+        background: var(--bg-card, #fff);
+        border-radius: 1rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        animation: fadeInUp 0.5s ease-out;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .btn-primary {
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+    }
+
+    .text-success {
+        animation: scaleIn 0.5s ease-out;
+    }
+
+    @keyframes scaleIn {
+        from {
+            transform: scale(0);
+        }
+        to {
+            transform: scale(1);
+        }
+    }
+</style>
+{% endblock %}

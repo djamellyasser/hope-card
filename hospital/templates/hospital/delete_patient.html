@@ -1,0 +1,60 @@
+{% extends "hospital/base.html" %}
+{% load static %}
+
+{% block title %}حذف المريض - Hope Carde{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        تأكيد حذف المريض
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                        <strong>تنبيه:</strong> هذا الإجراء لا يمكن التراجع عنه.
+                    </div>
+                    
+                    <div class="patient-info mb-4">
+                        <h4 class="text-danger mb-3">معلومات المريض</h4>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>الاسم الكامل</th>
+                                <td>{{ object.full_name }}</td>
+                            </tr>
+                            <tr>
+                                <th>رقم الهوية</th>
+                                <td>{{ object.id_number|default:"-" }}</td>
+                            </tr>
+                            <tr>
+                                <th>رقم العضوية</th>
+                                <td>{{ object.membership_number|default:"-" }}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <form method="post" class="text-center">
+                        {% csrf_token %}
+                        <p class="lead mb-4">هل أنت متأكد من حذف بيانات هذا المريض؟</p>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-danger btn-lg mx-2">
+                                <i class="fas fa-trash-alt me-1"></i>
+                                نعم، احذف المريض
+                            </button>
+                            <a href="{% url 'patient_list' %}" class="btn btn-secondary btn-lg mx-2">
+                                <i class="fas fa-times me-1"></i>
+                                إلغاء
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

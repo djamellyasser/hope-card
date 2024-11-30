@@ -1,0 +1,172 @@
+{% extends "hospital/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}تعديل بيانات المريض - Hope Carde{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-user-edit me-2"></i>
+                        تعديل بيانات المريض
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" class="form" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <!-- Personal Information -->
+                        <div class="card mb-4">
+                            <div class="card-header bg-primary text-white">
+                                <h4 class="mb-0">
+                                    <i class="fas fa-user me-2"></i>
+                                    المعلومات الشخصية
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{ form.full_name|as_crispy_field }}
+                                        {{ form.date_of_birth|as_crispy_field }}
+                                        {{ form.gender|as_crispy_field }}
+                                        {{ form.phone_number|as_crispy_field }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form.id_number|as_crispy_field }}
+                                        {{ form.email|as_crispy_field }}
+                                        {{ form.address|as_crispy_field }}
+                                        {{ form.occupation|as_crispy_field }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Medical Information -->
+                        <div class="card mb-4">
+                            <div class="card-header bg-info text-white">
+                                <h4 class="mb-0">
+                                    <i class="fas fa-notes-medical me-2"></i>
+                                    المعلومات الطبية
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{ form.diagnosis|as_crispy_field }}
+                                        {{ form.medical_history|as_crispy_field }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form.current_medications|as_crispy_field }}
+                                        {{ form.allergies|as_crispy_field }}
+                                        {{ form.blood_type|as_crispy_field }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Medical Documents -->
+                        <div class="card mb-4">
+                            <div class="card-header bg-success text-white">
+                                <h4 class="mb-0">
+                                    <i class="fas fa-file-medical me-2"></i>
+                                    المستندات الطبية
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        {{ form.medical_reports|as_crispy_field }}
+                                        {% if object.medical_reports %}
+                                            <p class="text-success">
+                                                <i class="fas fa-check-circle"></i>
+                                                <a href="{{ object.medical_reports.url }}" target="_blank">عرض التقرير الحالي</a>
+                                            </p>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-4">
+                                        {{ form.lab_results|as_crispy_field }}
+                                        {% if object.lab_results %}
+                                            <p class="text-success">
+                                                <i class="fas fa-check-circle"></i>
+                                                <a href="{{ object.lab_results.url }}" target="_blank">عرض نتائج التحاليل</a>
+                                            </p>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-4">
+                                        {{ form.prescriptions|as_crispy_field }}
+                                        {% if object.prescriptions %}
+                                            <p class="text-success">
+                                                <i class="fas fa-check-circle"></i>
+                                                <a href="{{ object.prescriptions.url }}" target="_blank">عرض الوصفات الطبية</a>
+                                            </p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Emergency Contact -->
+                        <div class="card mb-4">
+                            <div class="card-header bg-warning">
+                                <h4 class="mb-0">
+                                    <i class="fas fa-phone-alt me-2"></i>
+                                    معلومات الطوارئ
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{ form.emergency_contact_name|as_crispy_field }}
+                                        {{ form.emergency_contact_relationship|as_crispy_field }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form.emergency_contact_phone|as_crispy_field }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Membership Information -->
+                        <div class="card mb-4">
+                            <div class="card-header bg-secondary text-white">
+                                <h4 class="mb-0">
+                                    <i class="fas fa-id-card me-2"></i>
+                                    معلومات العضوية
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{ form.membership_number|as_crispy_field }}
+                                        {{ form.membership_type|as_crispy_field }}
+                                        {{ form.payment_type|as_crispy_field }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form.staff_name|as_crispy_field }}
+                                        {{ form.staff_signature|as_crispy_field }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-4 text-center">
+                            <button type="submit" class="btn btn-primary btn-lg mx-2">
+                                <i class="fas fa-save me-1"></i>
+                                حفظ التغييرات
+                            </button>
+                            <a href="{% url 'patient_list' %}" class="btn btn-secondary btn-lg mx-2">
+                                <i class="fas fa-times me-1"></i>
+                                إلغاء
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
